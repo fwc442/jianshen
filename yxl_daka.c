@@ -2,7 +2,7 @@
 #include <stdlib.h>
 #include "yxl.h"
 
-void yxl_daka(llist_node *cur)
+void yxl_daka(llist_head *cur)
 {
 	long card;
 	llist_node *user;
@@ -13,18 +13,23 @@ void yxl_daka(llist_node *cur)
 		printf("------------------------------\n");
 		printf("-------欢迎来到打卡系统-------\n");
 		printf("------------------------------\n");
-		printf("\n\n");
+		printf("\n");
 		printf("            -请刷卡-          \n");
+		printf("------------------------------\n");
+		printf("\n");
+		printf("------------------------------\n");
+		printf("输入0退出系统\n\n");
 		scanf("%ld",&card);
+		if(card==0)
+			return;
 
-		//找有没有
+		user=gyt_search_user_by_cardId(cur,card);
+		if(user==NULL)
 		{
 			printf("您的卡号无效,刷卡失败,请联系管理员\n");
-			getchar();
-			getchar();
-			continue;
+			getchar();getchar();continue;
 		}
-		else//找到了
+		else
 		{
 			if(user->data->type==1)
 			{
@@ -33,41 +38,39 @@ void yxl_daka(llist_node *cur)
 					user->data->cnt--;
 					printf("欢迎您!用户@%ld，您的卡为次数卡,剩余次数为%d次\n\n",user->data->call,user->data->cnt);
 					printf("您今日打卡成功,祝您今日愉快!\n\n");
-					getchar();
-					getchar();
+					getchar();getchar();continue;
 				}
 				else
 				{
 					printf("欢迎您!用户@%ld\n\n",user->data->call);
 					printf("您的会员卡次数已用完,请联系管理员充值\n\n");
-					getchar();
-					getchar();
+					getchar();getchar();continue;
 				}
 			}
-			else if(user->data->type=2)
+			else if(user->data->type==2)
 			{
-				int s_time;
+				int s_time=get_rest_time(user->data);
 				//进行时间运算
+				if(s_time>0)
 				{
 					printf("欢迎您!用户@%ld，您的卡为时间卡,剩余时长为%d天\n\n",user->data->call,s_time);
 					printf("您今日打卡成功,祝您今日愉快!\n\n");
-					getchar();
-					getchar();
+					getchar();getchar();continue;
 				}
 				else
 				{
 					printf("欢迎您!用户@%ld\n\n",user->data->call);
 					printf("您的时间卡已过期,请联系管理员充值\n\n");
-					getchar();
-					getchar();
+					getchar();getchar();continue;
 				}
 			}
 			else
 			{
 				printf("您的卡为未知卡,请联系管理员\n\n");
-				getchar();
-				getchar();
+				getchar();getchar();continue;
 			}
 		}
 	}
 }
+
+
