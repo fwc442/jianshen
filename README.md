@@ -52,7 +52,7 @@ IO.c IO.h 杨旭龙
 
 用户链表结构体
 typedef struct llist_data
-{
+
    int id;(卡号)
    int call;（手机号）
    int type;(开卡类型 1次数卡 2时间卡)
@@ -60,16 +60,16 @@ typedef struct llist_data
    int* end_time;（过期时间）
 这个地方的int* 是败笔,原本打算写char start_time[20]以存储,但因为最后讨论使用了int* 导致所有有关时间的部分都写错了,都需要让ai来进行修复*
    int cnt;(剩余次数)
-}llist_data;
+llist_data;
 
 typedef struct llist_node
-{
+
    struct llist_data *data;
    struct llist_node *next;
-}llist_node;
+llist_node;
 
 typedef struct llist_head
-{
+
     int len;
     llist_node *head;
-}llist_head;
+llist_head;
