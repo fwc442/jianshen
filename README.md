@@ -43,9 +43,3 @@
 数据全程内存管理 + 文件存储，安全稳定
 菜单式交互界面，无需专业知识即可快速上手
 功能完整，覆盖健身房会员管理全流程
-
-typedef struct llist_head
-{
-    int len;
-    llist_node *head;
-}llist_head;
